@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospital Argentino · Recepción</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- ============================ Sidebar ============================ -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">HA</div>
+        <div class="brand-txt">
+          <strong>Hospital Argentino</strong>
+          <span>Gestión de Recepción</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-section="panel" data-title="Panel de control">
+          <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10Zm0 8h8v-6H3v6Zm10 0h8V11h-8v10Zm0-18v6h8V3h-8Z"/></svg>
+          <span>Panel</span>
+        </button>
+        <button class="nav-item" data-section="pacientes" data-title="Pacientes">
+          <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5 0-9 2.5-9 6v2h18v-2c0-3.5-4-6-9-6Z"/></svg>
+          <span>Pacientes</span>
+        </button>
+        <button class="nav-item" data-section="turnos" data-title="Turnos y agenda">
+          <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7Zm12 8v10H5V10h14Z"/></svg>
+          <span>Turnos</span>
+        </button>
+        <button class="nav-item" data-section="facturacion" data-title="Facturación">
+          <svg viewBox="0 0 24 24"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2V2l-3 2-3-2-3 2-3-2-3 2Zm4 5h8v2H8V7Zm0 4h8v2H8v-2Zm0 4h5v2H8v-2Z"/></svg>
+          <span>Facturación</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="user-chip">
+          <div class="avatar">LG</div>
+          <div>
+            <strong>Laura Gómez</strong>
+            <span>Recepcionista</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============================ Main ============================ -->
+    <div class="main">
+      <header class="topbar">
+        <h1 id="page-title">Panel de control</h1>
+        <div class="today" id="today"></div>
+      </header>
+
+      <div class="content">
+
+        <!-- ---------------- Sección: Panel ---------------- -->
+        <section id="sec-panel" class="section">
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-ico teal"><svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7Zm12 8v10H5V10h14Z"/></svg></div>
+              <div><span class="stat-num" id="stat-turnos">0</span><span class="stat-lbl">Turnos agendados</span></div>
+            </div>
+            <div class="stat">
+              <div class="stat-ico emerald"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 5h-2v6l5 3 1-1.7-4-2.3V7Z"/></svg></div>
+              <div><span class="stat-num" id="stat-hoy">0</span><span class="stat-lbl">Turnos de hoy</span></div>
+            </div>
+            <div class="stat">
+              <div class="stat-ico sky"><svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-5 0-9 2.5-9 6v2h18v-2c0-3.5-4-6-9-6Z"/></svg></div>
+              <div><span class="stat-num" id="stat-pacientes">0</span><span class="stat-lbl">Pacientes</span></div>
+            </div>
+            <div class="stat">
+              <div class="stat-ico amber"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5Zm0 7.5L4.2 5.7 12 2l7.8 3.7L12 9.5ZM2 17l10 5 10-5-2.2-1.1L12 19.7 4.2 15.9 2 17Zm0-5 10 5 10-5-2.2-1.1L12 14.7 4.2 10.9 2 12Z"/></svg></div>
+              <div><span class="stat-num" id="stat-especialidades">0</span><span class="stat-lbl">Especialidades</span></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Próximos turnos</h2></div>
+            <div class="card-body no-pad">
+              <table class="tbl">
+                <thead><tr><th>#</th><th>Paciente</th><th>Especialidad</th><th>Fecha y hora</th><th>Estado</th></tr></thead>
+                <tbody id="dash-proximos"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------------- Sección: Pacientes ---------------- -->
+        <section id="sec-pacientes" class="section hidden">
+          <div class="two-col">
+            <div class="card">
+              <div class="card-head"><h2>Registrar paciente</h2></div>
+              <div class="card-body form">
+                <div class="row">
+                  <div class="field"><label>Nombre</label><input id="pac-nombre" placeholder="Ej: Martín" /></div>
+                  <div class="field"><label>Apellido</label><input id="pac-apellido" placeholder="Ej: Fernández" /></div>
+                </div>
+                <div class="row">
+                  <div class="field"><label>Tipo doc.</label>
+                    <select id="pac-tipodoc">
+                      <option value="">Seleccionar</option>
+                      <option value="DNI">DNI</option>
+                      <option value="LE">LE</option>
+                      <option value="PASAPORTE">Pasaporte</option>
+                    </select>
+                  </div>
+                  <div class="field"><label>N.º documento</label><input id="pac-nrodoc" placeholder="Ej: 30111222" /></div>
+                </div>
+                <div class="row">
+                  <div class="field"><label>Email</label><input id="pac-email" placeholder="correo@ejemplo.com" /></div>
+                  <div class="field"><label>Teléfono</label><input id="pac-telefono" placeholder="11 5555 5555" /></div>
+                </div>
+                <div class="field"><label>Domicilio</label><input id="pac-domicilio" placeholder="Calle 123" /></div>
+                <div class="field"><label>Cobertura</label>
+                  <select id="pac-obrasocial"><option value="">Particular (sin cobertura)</option></select>
+                </div>
+                <button id="btn-guardar-paciente" class="btn btn-primary">Guardar paciente</button>
+                <p id="pac-msg" class="msg"></p>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-head"><h2>Pacientes registrados</h2></div>
+              <div class="card-body no-pad">
+                <table class="tbl">
+                  <thead><tr><th>Paciente</th><th>Documento</th><th>Cobertura</th><th>Contacto</th></tr></thead>
+                  <tbody id="tabla-pacientes"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------------- Sección: Turnos ---------------- -->
+        <section id="sec-turnos" class="section hidden">
+          <div class="card highlight">
+            <div class="card-head"><h2>Reservar turno</h2><span class="hint">Derivación al especialista</span></div>
+            <div class="card-body form">
+              <div class="field"><label>Paciente</label>
+                <select id="turno-paciente"><option value="">Seleccione un paciente</option></select>
+              </div>
+              <div class="row">
+                <div class="field"><label>Especialidad</label>
+                  <select id="turno-especialidad"><option value="">Elija especialidad</option></select>
+                </div>
+                <div class="field"><label>Médico</label>
+                  <select id="turno-medico" disabled><option value="">Elija especialidad primero</option></select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="field"><label>Fecha</label><input type="date" id="turno-fecha" /></div>
+                <div class="field"><label>Horario</label>
+                  <select id="turno-hora" disabled><option value="">Elija fecha primero</option></select>
+                </div>
+              </div>
+              <div class="field"><label>Motivo de consulta</label><input id="turno-motivo" placeholder="Ej: dolor de rodilla" /></div>
+              <button id="btn-confirmar-turno" class="btn btn-accent">Confirmar turno</button>
+              <p id="turno-msg" class="msg"></p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Agenda de turnos</h2></div>
+            <div class="card-body no-pad">
+              <table class="tbl">
+                <thead><tr><th>#</th><th>Paciente</th><th>Especialidad</th><th>Fecha y hora</th><th>Motivo</th><th>Estado</th></tr></thead>
+                <tbody id="tabla-turnos"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------------- Sección: Facturación ---------------- -->
+        <section id="sec-facturacion" class="section hidden">
+          <div class="card">
+            <div class="card-head"><h2>Facturación de aranceles</h2></div>
+            <div class="card-body form">
+              <div class="row">
+                <div class="field"><label>Turno</label>
+                  <select id="fact-turno"><option value="">Seleccione un turno</option></select>
+                </div>
+                <div class="field"><label>Medio de pago</label>
+                  <select id="fact-mediopago">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Débito">Débito</option>
+                    <option value="Crédito">Crédito</option>
+                    <option value="Obra Social">Obra Social</option>
+                  </select>
+                </div>
+              </div>
+              <label class="section-label">Prácticas a facturar</label>
+              <div id="fact-practicas" class="practicas"></div>
+              <div class="fact-footer">
+                <div class="total-box">Total <strong>$<span id="fact-total">0.00</span></strong></div>
+                <button id="btn-facturar" class="btn btn-accent" disabled>Generar factura</button>
+              </div>
+              <p id="fact-msg" class="msg"></p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
